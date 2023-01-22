@@ -1,7 +1,8 @@
 <script>
   import "./style/normalize.css";
   //   console.log(new Date(), new Date("2023-01-12T21:16:40+00:00"));
-  let noStreamTime = null;
+  const timeString = "2023-01-12T21:16:40+00:00";
+  let nowStreamTime = null;
   function getSubtractTimeFromNow(dateString) {
     const dayOffset = new Date() - new Date(dateString);
     const subtractDay = Math.floor(dayOffset / 86400000);
@@ -13,7 +14,10 @@
     const substractSecond = Math.floor(secondOffset / 1000);
     return [subtractDay, subtractHour, substractMinute, substractSecond];
   }
-  noStreamTime = getSubtractTimeFromNow("2023-01-12T21:16:40+00:00");
+  nowStreamTime = getSubtractTimeFromNow(timeString);
+  window.setInterval(() => {
+    nowStreamTime = getSubtractTimeFromNow(timeString);
+  }, 1000);
   //   const urlParams = new URLSearchParams(window.location.);
   //   const checkChannel = urlParams.get("channel") || "@Kintsuai";
   //   fetch(
@@ -30,11 +34,11 @@
 
 <main>
   <div class="modal-wrapper">
-    <div class="bg" />
-    {#if noStreamTime}
+    <div class="bg" style={`opacity: ${0.6 - nowStreamTime[0] * 0.05}`} />
+    {#if nowStreamTime}
       <p class="head">距離 金姓女鬼 上一次直播已經過了</p>
       <p class="time">
-        {`${noStreamTime[0]} 天 ${noStreamTime[1]}小時 ${noStreamTime[2]}分鐘 ${noStreamTime[3]}秒`}
+        {`${nowStreamTime[0]} 天 ${nowStreamTime[1]}小時 ${nowStreamTime[2]}分鐘 ${nowStreamTime[3]}秒`}
       </p>
     {:else}
       <span>Checking...</span>
@@ -63,14 +67,13 @@ main
 	transform: translateY(-50%)
 	width: 100%
 	height: 70%
-	background: no-repeat center top/cover url('/ghost.jpg')
+	background: no-repeat center top/cover url('./ghost.jpg')
 	opacity: 0.4
 p
 	color: #333
 	padding: 8px
 	margin: 0
 	border-radius: 8px
-	// backdrop-filter: blur(3px)
 	&.head
 		display: inline-block
 		font-size: 2rem

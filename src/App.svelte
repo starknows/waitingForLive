@@ -40,6 +40,13 @@
       <p class="time">
         {`${nowStreamTime[0]} 天 ${nowStreamTime[1]}小時 ${nowStreamTime[2]}分鐘 ${nowStreamTime[3]}秒`}
       </p>
+      <p class="subscripe">
+        <a
+          target="_blank"
+          href="https://www.youtube.com/@Kintsuai?sub_confirmation=1"
+          rel="noreferrer noopener">>> 譴責她</a
+        >
+      </p>
     {:else}
       <span>Checking...</span>
     {/if}
@@ -81,6 +88,12 @@ p
 	&.time
 		font-size: 5rem
 		font-weight: 900
+	&.subscripe
+		margin-top: 2rem
+		font-size: 1.5rem
+		font-weight: 500
+		& > a
+			color: #c91032
 span
 	font-size: 2rem
 	color: #aaa

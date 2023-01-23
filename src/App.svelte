@@ -1,7 +1,6 @@
 <script>
   import "./style/normalize.css";
-  //   console.log(new Date(), new Date("2023-01-12T21:16:40+00:00"));
-  const timeString = "2023-01-12T21:16:40+00:00";
+  // const timeString = "2023-01-12T21:16:40+00:00";
   let nowStreamTime = null;
   function getSubtractTimeFromNow(dateString) {
     const dayOffset = new Date() - new Date(dateString);
@@ -14,29 +13,9 @@
     const substractSecond = Math.floor(secondOffset / 1000);
     return [subtractDay, subtractHour, substractMinute, substractSecond];
   }
-  nowStreamTime = getSubtractTimeFromNow(timeString);
-  window.setInterval(() => {
-    nowStreamTime = getSubtractTimeFromNow(timeString);
-  }, 1000);
-  // https://last-stream-time-4ko2j3acva-as.a.run.app
-  //   const urlParams = new URLSearchParams(window.location.search);
-  //   const checkChannel = urlParams.get("channel") || "@Kintsuai";
-  //   fetch(
-  //     `https://www.youtube.com/${
-  //       checkChannel[0] === "@" ? checkChannel : "@" + checkChannel
-  //     }/streams`
-  //   )
-  //     .then((res) => res.text())
-  //     .then((text) => {
-  //       const firstStream = text.match(/"videoRenderer":{"videoId":"(.*?)",/m);
-  //       console.log("firstSteamID = ", firstStream);
-  //     });
-  const urlParams = new URLSearchParams(window.location.search);
-  const checkChannel = urlParams.get("channel") || "@Kintsuai";
   const postBody = {
-    channelId: checkChannel[0] === "@" ? checkChannel : "@" + checkChannel,
+    channelId: "@Kintsuai",
   };
-  console.log(postBody);
   fetch("https://last-stream-time-4ko2j3acva-as.a.run.app", {
     method: "POST",
     headers: {
@@ -45,8 +24,13 @@
     },
     body: JSON.stringify(postBody),
   })
-    .then((res) => {
-      console.log(res);
+    .then((res) => res.text())
+    .then((text) => {
+      console.log(text);
+      nowStreamTime = getSubtractTimeFromNow(text);
+      window.setInterval(() => {
+        nowStreamTime = getSubtractTimeFromNow(text);
+      }, 1000);
     })
     .catch((err) => {
       console.log(err);

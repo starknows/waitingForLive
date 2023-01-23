@@ -18,7 +18,8 @@
   window.setInterval(() => {
     nowStreamTime = getSubtractTimeFromNow(timeString);
   }, 1000);
-  //   const urlParams = new URLSearchParams(window.location.);
+  // https://last-stream-time-4ko2j3acva-as.a.run.app
+  //   const urlParams = new URLSearchParams(window.location.search);
   //   const checkChannel = urlParams.get("channel") || "@Kintsuai";
   //   fetch(
   //     `https://www.youtube.com/${
@@ -30,6 +31,22 @@
   //       const firstStream = text.match(/"videoRenderer":{"videoId":"(.*?)",/m);
   //       console.log("firstSteamID = ", firstStream);
   //     });
+  const urlParams = new URLSearchParams(window.location.search);
+  const checkChannel = urlParams.get("channel") || "@Kintsuai";
+  const postBody = {
+    channelId: checkChannel[0] === "@" ? checkChannel : "@" + checkChannel,
+  };
+  console.log(postBody);
+  fetch("https://last-stream-time-4ko2j3acva-as.a.run.app", {
+    method: "POST",
+    body: JSON.stringify(postBody),
+  })
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 </script>
 
 <main>

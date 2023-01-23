@@ -39,6 +39,10 @@
   console.log(postBody);
   fetch("https://last-stream-time-4ko2j3acva-as.a.run.app", {
     method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
     body: JSON.stringify(postBody),
   })
     .then((res) => {

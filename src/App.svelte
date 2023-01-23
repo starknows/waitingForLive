@@ -39,8 +39,8 @@
 
 <main>
   <div class="modal-wrapper">
-    <div class="bg" style={`opacity: ${0.6 - nowStreamTime[0] * 0.05}`} />
     {#if nowStreamTime}
+      <div class="bg" style={`opacity: ${0.6 - nowStreamTime[0] * 0.05}`} />
       <p class="head">距離 金姓女鬼 上一次直播已經過了</p>
       <p class="time">
         {`${nowStreamTime[0]} 天 ${nowStreamTime[1]}小時 ${nowStreamTime[2]}分鐘 ${nowStreamTime[3]}秒`}
